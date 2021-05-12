@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Horario</title>
+        <link rel="stylesheet" href="../static/main.css" type="text/css" >
+    </head>
+    <body>
+        <div>
+            <form action="/{{'persona1'}}/" method="post">  
+                <button class="element" type="submit" id="Person" name="Person">Persona 1</button>
+            </form>
+            <form action="/{{'persona2'}}/" method="post">  
+                <button class="element" type="submit" id="Person" name="Person">Persona 2</button>
+            </form >
+            <form action="/{{'persona3'}}/" method="post">  
+                <button class="element" type="submit" id="Person" name="Person">Persona 3</button>
+            </form>
+        </div>
+
+        <div class="grid">
+            {% for i, info in informacion.items() %}
+
+                <div class="element hor">{{ info.0 }}</div>
+                    {% if personaActual!=None %}
+                        {% if info.2==2 and personas[personaActual][i].0=="Selected" %}
+                            <div >
+                                <form action="/{{personaActual}}/drop/{{i}}/" method="post">
+                                    <button type="submit" id='Selected' class="element casilla selected" name="Selected" >Selected</button>
+                                </form>
+                            </div>
+                        {% elif info.2==2 %}
+                            <div class="element ocuppied"> Ocupado </div>
+                        {% elif personas[personaActual][i].0=="Free" %}
+                            <div >
+                                <form action="/{{personaActual}}/take/{{i}}/" method="post">
+                                    <button type="submit" id='Free' class="element casilla free" name="Free" >Disponible</button>
+                                </form>
+                            </div>
+
+                        {% elif personas[personaActual][i].0=="Selected" %}
+                            <div >
+                                <form action="/{{personaActual}}/drop/{{i}}/" method="post">
+                                    <button type="submit" id='Selected' class="element casilla selected" name="Selected" >Selected</button>
+                                </form>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="element ocuppied"> SelectPerson </div>
+                    {% endif %}
+            {% endfor %}
+            
+        </div>
+    </body>
+</html>
+
